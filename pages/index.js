@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 const localhost = "http://localhost:3000";
 const domain = "https://next12apivercel.vercel.app";
-let selectedHost = domain;
+let selectedHost = localhost;
 
 export async function getServerSideProps() {
   const response = await fetch(`${selectedHost}/api/hello`);
