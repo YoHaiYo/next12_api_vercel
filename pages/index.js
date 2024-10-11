@@ -12,17 +12,18 @@ export async function getServerSideProps() {
   return {
     props: {
       message: data.message,
+      users: data.users || [], // 사용자 목록 추가
     },
   };
 }
 
-const HomePage = ({ message }) => {
+const HomePage = ({ message, users: initialUsers }) => {
   const [responseMessage, setResponseMessage] = useState("");
   const [addName, setAddName] = useState(""); // POST 요청을 위한 입력
   const [oldName, setOldName] = useState(""); // PUT 요청을 위한 수정할 이름
   const [newName, setNewName] = useState(""); // PUT 요청을 위한 새 이름
   const [deleteName, setDeleteName] = useState(""); // DELETE 요청을 위한 이름
-  const [users, setUsers] = useState([]); // 사용자 리스트 상태
+  const [users, setUsers] = useState(initialUsers); // 초기 사용자 리스트 상태
 
   const handlePostRequest = async () => {
     const response = await fetch(`${selectedHost}/api/hello`, {
@@ -75,7 +76,8 @@ const HomePage = ({ message }) => {
 
   return (
     <div>
-      <h1>Next.js와 Vercel로 api구축하기</h1>
+      <h1>Next.js와 Vercel 연동하기</h1>
+      <p>{message}</p>
       <h3>
         api주소 :{" "}
         <a
@@ -83,8 +85,6 @@ const HomePage = ({ message }) => {
           target="_blank"
         >{`${selectedHost}/api/hello`}</a>
       </h3>
-
-      <p>{message}</p>
 
       {/* POST 요청을 위한 입력 필드 */}
       <div>
@@ -129,11 +129,15 @@ const HomePage = ({ message }) => {
       </div>
 
       {/* 사용자 리스트 표시 */}
-      <h2>사용자 목록</h2>
+      <h2>저장 리스트</h2>
       <ul>
-        {users.map((user, index) => (
-          <li key={index}>{user}</li> // 사용자 이름을 리스트로 표시
-        ))}
+        {users.length > 0 ? (
+          users.map((user, index) => (
+            <li key={index}>{user}</li> // 사용자 이름을 리스트로 표시
+          ))
+        ) : (
+          <li>리스트가 없습니다.</li> // 사용자 목록이 없을 경우
+        )}
       </ul>
 
       {responseMessage && <p>{responseMessage}</p>}

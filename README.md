@@ -1,9 +1,12 @@
-"# next12_api_vercel"
+### 주소
 
 - 배포주소 : https://next12apivercel.vercel.app/
 - 배포된 api : https://next12apivercel.vercel.app/api/hello
 
-next12 + vercel 로 무료api 서버 갖는 셈이다.
+### 개요
+
+- next12 + vercel 로 무료api 서버 갖는 셈이다.
+- 뿐만아니라 미니DB로 써도될듯. GET, POST, PUT, DELETE 다 됨.
 
 ### 메모
 
