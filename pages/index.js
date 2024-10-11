@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 const localhost = "http://localhost:3000";
 const domain = "https://next12apivercel.vercel.app";
-let selectedHost = domain;
+let selectedHost = localhost;
 
 export async function getServerSideProps() {
   const response = await fetch(`${selectedHost}/api/hello`);
@@ -76,7 +76,13 @@ const HomePage = ({ message }) => {
   return (
     <div>
       <h1>Next.js와 Vercel로 api구축하기</h1>
-      <h3>api주소 : {`${selectedHost}/api/hello`}</h3>
+      <h3>
+        api주소 :{" "}
+        <a
+          href={`${selectedHost}/api/hello`}
+          target="_blank"
+        >{`${selectedHost}/api/hello`}</a>
+      </h3>
 
       <p>{message}</p>
 

@@ -5,9 +5,10 @@ let users = []; // 사용자를 저장할 배열
 export default function handler(req, res) {
   // GET 요청 처리
   if (req.method === "GET") {
-    res
-      .status(200)
-      .json({ message: "안녕하세요! Vercel에서 보낸 메시지입니다!" });
+    res.status(200).json({
+      message: "안녕하세요! Vercel에서 보낸 메시지입니다!",
+      users: users, // 사용자 목록 추가
+    });
   }
 
   // POST 요청 처리
