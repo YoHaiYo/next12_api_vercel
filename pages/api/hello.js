@@ -1,9 +1,10 @@
 import fs from "fs";
 import path from "path";
+import fetch from "node-fetch"; // 추가된 부분
 
 let users = []; // 사용자를 저장할 배열
 
-// 서버 시작 시 users.json에서 사용자 목록 읽기
+// 서버 시작 시 users.json에서 사용자 목록 읽기 및 POST 요청으로 추가
 const loadUsersFromFile = () => {
   const filePath = path.join(process.cwd(), "pages/api/users.json");
   const jsonData = fs.readFileSync(filePath);
@@ -11,8 +12,26 @@ const loadUsersFromFile = () => {
   users = data.users; // JSON 데이터에서 사용자 배열을 가져옴
 };
 
+// 초기 데이터 로드 및 POST 요청으로 추가
+const initializeUsers = async () => {
+  loadUsersFromFile();
+  // 기본 메시지 출력
+  console.log("서버 시작 시 사용자 목록 초기화:", users);
+
+  // 사용자 목록을 POST 요청으로 추가
+  for (const user of users) {
+    await fetch("http://localhost:3000/api/hello", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name: user }),
+    });
+  }
+};
+
 // 초기 데이터 로드
-loadUsersFromFile();
+initializeUsers();
 
 export default function handler(req, res) {
   // GET 요청 처리
