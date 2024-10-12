@@ -20,7 +20,7 @@ const initializeUsers = async () => {
 
   // 사용자 목록을 POST 요청으로 추가
   for (const user of users) {
-    await fetch("http://localhost:3000/api/hello", {
+    await fetch(`${selectedHost}/api/hello`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
