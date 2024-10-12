@@ -1,14 +1,25 @@
-// pages/api/hello.js
+import fs from "fs";
+import path from "path";
 
 let users = []; // 사용자를 저장할 배열
+
+// 서버 시작 시 users.json에서 사용자 목록 읽기
+const loadUsersFromFile = () => {
+  const filePath = path.join(process.cwd(), "pages/api/users.json");
+  const jsonData = fs.readFileSync(filePath);
+  const data = JSON.parse(jsonData);
+  users = data.users; // JSON 데이터에서 사용자 배열을 가져옴
+};
+
+// 초기 데이터 로드
+loadUsersFromFile();
 
 export default function handler(req, res) {
   // GET 요청 처리
   if (req.method === "GET") {
-    res.status(200).json({
-      message: "안녕하세요! Vercel에서 보낸 메시지입니다!",
-      users: users, // 사용자 목록 추가
-    });
+    res
+      .status(200)
+      .json({ message: "안녕하세요! Vercel에서 보낸 메시지입니다!", users });
   }
 
   // POST 요청 처리
